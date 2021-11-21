@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Thread;
 
 class ThreadController extends Controller
 {
@@ -13,8 +14,11 @@ class ThreadController extends Controller
      */
     public function index()
     {
+        // スレッド情報を取得して代入
+        $threads = Thread::all();
+        
         // 掲示板ページを表示
-        return view('bbs/index');
+        return view('bbs/index', compact('threads'));
     }
 
     /**
