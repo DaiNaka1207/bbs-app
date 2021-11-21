@@ -13,7 +13,8 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        //
+        // 掲示板ページを表示
+        return view('bbs/index');
     }
 
     /**
