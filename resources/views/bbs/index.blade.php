@@ -76,10 +76,12 @@
                 <hr class="mt-2 m-auto">
                 <div class="flex justify-end">
                     <div class="w-11/12">
-                        <div>
-                            <p class="mt-2 text-xs">2021/11/20 19:00 ＠Noname</p>
-                            <p class="my-2 text-sm">これは返信です。これは返信です。これは返信です。これは返信です。これは返信です。これは返信です。これは返信です。これは返信です。これは返信です。</p>
-                        </div>
+                        @foreach ($thread->replies as $reply)
+                            <div>
+                                <p class="mt-2 text-xs">{{$reply->created_at}} ＠{{$reply->user_name}}</p>
+                                <p class="my-2 text-sm">{{$reply->message}}</p>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
