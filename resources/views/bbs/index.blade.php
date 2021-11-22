@@ -22,19 +22,19 @@
 
         {{-- 入力フォーム --}}
         <div class="bg-white rounded-md mt-5 p-3">
-            <form action="/" method="POST">
+            <form action="{{route('bbs.store')}}" method="POST">
                 @csrf
                 <div class="flex">
                     <p class="font-bold">名前</p>
-                    <input class="border rounded px-2 ml-2" type="text" name="user_name">
+                    <input class="border rounded px-2 ml-2" type="text" name="user_name" required>
                 </div>
                 <div class="flex mt-2">
                     <p class="font-bold">件名</p>
-                    <input class="border rounded px-2 ml-2 flex-auto" type="text" name="message_title">
+                    <input class="border rounded px-2 ml-2 flex-auto" type="text" name="message_title" required>
                 </div>
                 <div class="flex flex-col mt-2">
                     <p class="font-bold">本文</p>
-                    <textarea class="border rounded px-2" name="message"></textarea>
+                    <textarea class="border rounded px-2" name="message" required></textarea>
                 </div>
                 <div class="flex justify-end mt-2">
                     <input class="my-2 px-2 py-1 rounded bg-blue-300 text-blue-900 font-bold link-hover cursor-pointer" type="submit" value="投稿">

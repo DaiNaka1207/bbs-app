@@ -14,9 +14,9 @@ class ThreadController extends Controller
      */
     public function index()
     {
-        // スレッド情報を取得して代入
-        $threads = Thread::all();
-        
+        // スレッド情報を取得して代入（最新情報を上位に表示）
+        $threads = Thread::orderBy('created_at', 'desc')->get();
+
         // 掲示板ページを表示
         return view('bbs/index', compact('threads'));
     }
@@ -39,7 +39,11 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // フォームに入力されたスレッド情報をデータベースへ登録
+        $threads = new Thread;
+        $form = $request->all();
+        $threads->fill($form)->save();
+        return redirect('/');
     }
 
     /**
