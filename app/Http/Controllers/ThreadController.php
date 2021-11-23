@@ -15,7 +15,7 @@ class ThreadController extends Controller
     public function index()
     {
         // スレッド情報を取得して代入（最新情報を上位に表示）
-        $threads = Thread::orderBy('created_at', 'desc')->get();
+        $threads = Thread::orderBy('created_at', 'desc')->Paginate(5);
 
         // 掲示板ページを表示
         return view('bbs/index', compact('threads'));

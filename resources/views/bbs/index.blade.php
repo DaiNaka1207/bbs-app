@@ -54,7 +54,7 @@
         </div>
 
         {{-- ページネーション --}}
-        <p class="flex justify-center text-blue-300 mt-5 link-hover cursor-pointer">prev 1 2 3 4 next</p>
+        <p class="mt-5">{{ $threads->links() }}</p>
 
         {{-- 投稿 --}}
         @foreach ($threads as $thread)
@@ -98,7 +98,7 @@
         @endforeach
 
         {{-- ページネーション --}}
-        <p class="flex justify-center text-blue-300 mt-1 mb-5 link-hover cursor-pointer">prev 1 2 3 4 next</p>
+        <p class="my-5">{{ $threads->links() }}</p>
     </div>
 
     {{-- スレッド削除の確認 --}}
