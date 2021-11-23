@@ -88,6 +88,8 @@ class ThreadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // スレッド情報をデータベースから削除
+        $thread = Thread::find($id)->delete();
+        return redirect('/');
     }
 }

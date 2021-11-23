@@ -15,6 +15,6 @@ use App\Http\Controllers\ReplyController;
 |
 */
 
-Route::redirect('/', '/bbs');
-Route::resource('/bbs', ThreadController::class);
+Route::redirect('/', '/thread');
+Route::resource('/thread', ThreadController::class);
 Route::resource('/reply', ReplyController::class);
