@@ -11,7 +11,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     <style>
-        .link-hover:hover {opacity: 70%;}
+        .link-hover:hover {opacity: 70%;}   /* リンクをホバーした時に少し薄く表示 */
     </style>
 </head>
 <body class="bg-blue-100">
@@ -24,6 +24,7 @@
         <div class="bg-white rounded-md mt-5 p-3">
             <form action="{{route('thread.store')}}" method="POST">
                 @csrf
+                {{-- ユーザー識別子の隠し要素 --}}
                 <input type="hidden" name="user_identifier" value="{{session('user_identifier')}}">
                 <div class="flex">
                     <p class="font-bold">名前</p>
