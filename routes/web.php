@@ -18,3 +18,4 @@ use App\Http\Controllers\ReplyController;
 Route::redirect('/', '/thread');
 Route::resource('/thread', ThreadController::class);
 Route::resource('/reply', ReplyController::class);
+Route::post('/thread/search', [ThreadController::class, 'search'])->name('thread.search');

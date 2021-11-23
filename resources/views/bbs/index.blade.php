@@ -44,10 +44,10 @@
 
         {{-- 検索フォーム --}}
         <div class="bg-white rounded-md mt-3 p-3">
-            <form action="/" method="post">
+            <form action="{{route('thread.search')}}" method="post">
                 @csrf
                 <div class="mx-1 flex">
-                    <input class="border rounded px-2 flex-auto" type="text" name="serch_message">
+                    <input class="border rounded px-2 flex-auto" type="text" name="search_message" required>
                     <input class="ml-2 px-2 py-1 rounded bg-gray-500 text-white font-bold link-hover cursor-pointer" type="submit" value="検索">
                 </div>
             </form>

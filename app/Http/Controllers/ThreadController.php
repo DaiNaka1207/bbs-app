@@ -92,4 +92,16 @@ class ThreadController extends Controller
         $thread = Thread::find($id)->delete();
         return redirect('/');
     }
+
+    public function search(Request $request)
+    {
+        // 検索フォームに入力された単語のエスケープ処理
+        $search_message = '%' . addcslashes($request->search_message, '%_\\') . '%';
+
+        // 検索フォームに入力された単語でLIKE検索した結果のスレッド情報を取得して代入（最新情報を上位に表示）
+        $threads = Thread::where('message', 'LIKE', $search_message)->orderBy('created_at', 'desc')->Paginate(5);
+
+        // 掲示板ページを表示
+        return view('bbs/index', compact('threads'));
+    }
 }
