@@ -68,11 +68,11 @@
                 {{-- ボタン --}}
                 <div class="flex mt-5">
                     {{-- 返信 --}}
-                    <form class="flex justify-end flex-auto" action="{{route('reply.store')}}" method="POST">
+                    <form class="flex flex-auto" action="{{route('reply.store')}}" method="POST">
                         @csrf
                         <input type="hidden" name="thread_id" value={{$thread->id}}>
-                        <input class="border rounded px-2 flex-initial" type="text" name="user_name" placeholder="UserName" required>
-                        <input class="border rounded px-2 ml-2 flex-auto" type="text" name="message" placeholder="ReplyMessage" required>
+                        <input class="border rounded px-2 w-2/5 md:w-4/12 text-sm md:text-base" type="text" name="user_name" placeholder="UserName" required>
+                        <input class="border rounded px-2 ml-2 w-3/5 md:w-10/12 text-sm md:text-base" type="text" name="message" placeholder="ReplyMessage" required>
                         <input class="px-2 py-1 ml-2 rounded bg-green-600 text-white font-bold link-hover cursor-pointer" type="submit" value="返信">
                     </form>
                     {{-- 削除 --}}
