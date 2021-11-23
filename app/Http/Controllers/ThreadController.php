@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Thread;
 
 class ThreadController extends Controller
@@ -12,8 +13,14 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // ユーザー識別子をセッションに登録（なければランダムに生成）
+        if($request->session()->missing('user_identifier')){ session(['user_identifier' => Str::random(20)]); }
+
+        // ユーザー名をセッションに登録（なければGuestとして登録）
+        if($request->session()->missing('user_name')){ session(['user_name' => 'Guest']); }
+
         // スレッド情報を取得して代入（最新情報を上位に表示）
         $threads = Thread::orderBy('created_at', 'desc')->Paginate(5);
 
