@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ env('app_name') }}</title>
+    <title>{{config('app.name')}}</title>
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -18,7 +18,7 @@
     <div class="w-11/12 max-w-screen-md m-auto">
 
         {{-- タイトル --}}
-        <h1 class="text-xl font-bold mt-5"><a href="{{route('thread.index')}}">{{ env('app_name') }}</a></h1>
+        <h1 class="text-xl font-bold mt-5"><a href="{{route('thread.index')}}">{{config('app.name')}}</a></h1>
 
         {{-- 入力フォーム --}}
         <div class="bg-white rounded-md mt-5 p-3">
