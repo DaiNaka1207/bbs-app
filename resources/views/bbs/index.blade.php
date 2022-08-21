@@ -18,17 +18,17 @@
     <div class="w-11/12 max-w-screen-md m-auto">
 
         {{-- タイトル --}}
-        <h1 class="text-xl font-bold mt-5">{{ env('app_name') }}</h1>
+        <h1 class="text-xl font-bold mt-5"><a href="{{route('thread.index')}}">{{ env('app_name') }}</a></h1>
 
         {{-- 入力フォーム --}}
         <div class="bg-white rounded-md mt-5 p-3">
             <form action="{{route('thread.store')}}" method="POST">
                 @csrf
                 {{-- ユーザー識別子の隠し要素 --}}
-                <input type="hidden" name="user_identifier" value="{{session('user_identifier')}}">
+                <input type="hidden" name="user_identifier" value="{{cache('user_identifier')}}">
                 <div class="flex">
                     <p class="font-bold">名前</p>
-                    <input class="border rounded px-2 ml-2" type="text" name="user_name" value="{{session('user_name')}}" required>
+                    <input class="border rounded px-2 ml-2" type="text" name="user_name" value="{{cache('user_name')}}" required>
                 </div>
                 <div class="flex mt-2">
                     <p class="font-bold">件名</p>
@@ -73,12 +73,12 @@
                     <form class="flex flex-auto" action="{{route('reply.store')}}" method="POST">
                         @csrf
                         <input type="hidden" name="thread_id" value={{$thread->id}}>
-                        <input class="border rounded px-2 w-2/5 md:w-4/12 text-sm md:text-base" type="text" name="user_name" placeholder="UserName" value="{{session('user_name')}}" required>
+                        <input class="border rounded px-2 w-2/5 md:w-4/12 text-sm md:text-base" type="text" name="user_name" placeholder="UserName" value="{{cache('user_name')}}" required>
                         <input class="border rounded px-2 ml-2 w-3/5 md:w-10/12 text-sm md:text-base" type="text" name="message" placeholder="ReplyMessage" required>
                         <input class="px-2 py-1 ml-2 rounded bg-green-600 text-white font-bold link-hover cursor-pointer" type="submit" value="返信">
                     </form>
                     {{-- 削除 --}}
-                    @if ($thread->user_identifier == session('user_identifier'))
+                    @if ($thread->user_identifier == cache('user_identifier'))
                         <form action="{{route('thread.destroy', ['thread'=>$thread->id])}}" method="post">
                             @csrf
                             @method('DELETE')

@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Thread;
 
 class ThreadController extends Controller
 {
     public function index(Request $request)
     {
-        // ユーザー識別子をセッションに登録（なければランダムに生成）
-        if($request->session()->missing('user_identifier')){ session(['user_identifier' => Str::random(20)]); }
+        // 全キャッシュのクリア
+        // Cache::flush();
+        // dd(Cache::get('user_name'));
 
-        // ユーザー名をセッションに登録（なければGuestとして登録）
+        // ユーザー識別子をセッションに登録（なければランダムに生成）
+        // if($request->session()->missing('user_identifier')){ session(['user_identifier' => Str::random(20)]); }
+        Cache::add('user_identifier', Str::random(20));
+        // dd(Cache::get('user_identifier'));
+        
+        // ユーザー名をセッションに登録（デフォルト値：Guest）
         if($request->session()->missing('user_name')){ session(['user_name' => 'Guest']); }
+        Cache::add('user_name', 'Guest');
+        // dd(Cache::get('user_name'));
 
         // スレッド情報を取得して代入（最新情報を上位に表示）
         $threads = Thread::orderBy('created_at', 'desc')->Paginate(5);
@@ -26,7 +35,8 @@ class ThreadController extends Controller
     public function store(Request $request)
     {
         // フォームで入力されたユーザー名をセッションに登録
-        session(['user_name' => $request->user_name]);
+        // session(['user_name' => $request->user_name]);
+        Cache::put('user_name', $request->user_name);
 
         // フォームに入力されたスレッド情報をデータベースへ登録
         $threads = new Thread;
@@ -34,7 +44,7 @@ class ThreadController extends Controller
         $threads->fill($form)->save();
 
         // 掲示板ページへリダイレクト
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     public function destroy($id)
@@ -43,7 +53,7 @@ class ThreadController extends Controller
         $thread = Thread::find($id)->delete();
 
         // 掲示板ページへリダイレクト
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     public function search(Request $request)
@@ -55,6 +65,6 @@ class ThreadController extends Controller
         $threads = Thread::where('message', 'LIKE', $search_message)->orderBy('created_at', 'desc')->Paginate(5);
 
         // 掲示板ページを表示
-        return view('bbs/index', compact('threads'));
+        return view('bbs.index', compact('threads'));
     }
 }

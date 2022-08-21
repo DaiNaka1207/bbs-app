@@ -15,6 +15,6 @@ class ReplyController extends Controller
         $replies->fill($form)->save();
 
         // 掲示板ページへリダイレクト
-        return redirect('/');
+        return redirect(route('home'));
     }
 }
