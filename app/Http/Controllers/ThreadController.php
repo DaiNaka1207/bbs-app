@@ -11,19 +11,11 @@ class ThreadController extends Controller
 {
     public function index(Request $request)
     {
-        // 全キャッシュのクリア
-        // Cache::flush();
-        // dd(Cache::get('user_name'));
-
-        // ユーザー識別子をセッションに登録（なければランダムに生成）
-        // if($request->session()->missing('user_identifier')){ session(['user_identifier' => Str::random(20)]); }
+        // ユーザー識別子をキャッシュに登録（なければランダムに生成）
         Cache::add('user_identifier', Str::random(20));
-        // dd(Cache::get('user_identifier'));
         
-        // ユーザー名をセッションに登録（デフォルト値：Guest）
-        if($request->session()->missing('user_name')){ session(['user_name' => 'Guest']); }
+        // ユーザー名をキャッシュに登録（デフォルト値：Guest）
         Cache::add('user_name', 'Guest');
-        // dd(Cache::get('user_name'));
 
         // スレッド情報を取得して代入（最新情報を上位に表示）
         $threads = Thread::orderBy('created_at', 'desc')->Paginate(5);
@@ -34,8 +26,7 @@ class ThreadController extends Controller
 
     public function store(Request $request)
     {
-        // フォームで入力されたユーザー名をセッションに登録
-        // session(['user_name' => $request->user_name]);
+        // フォームで入力されたユーザー名をキャッシュに登録
         Cache::put('user_name', $request->user_name);
 
         // フォームに入力されたスレッド情報をデータベースへ登録
