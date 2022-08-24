@@ -25,10 +25,10 @@
             <form action="{{route('thread.store')}}" method="POST">
                 @csrf
                 {{-- ユーザー識別子の隠し要素 --}}
-                <input type="hidden" name="user_identifier" value="{{cache('user_identifier')}}">
+                <input type="hidden" name="user_identifier" value="{{$user['identifier']}}">
                 <div class="flex">
                     <p class="font-bold">名前</p>
-                    <input class="border rounded px-2 ml-2" type="text" name="user_name" value="{{cache('user_name')}}" required>
+                    <input class="border rounded px-2 ml-2" type="text" name="user_name" value="{{$user['name']}}" required>
                 </div>
                 <div class="flex mt-2">
                     <p class="font-bold">件名</p>
@@ -73,12 +73,12 @@
                     <form class="flex flex-auto" action="{{route('reply.store')}}" method="POST">
                         @csrf
                         <input type="hidden" name="thread_id" value={{$thread->id}}>
-                        <input class="border rounded px-2 w-2/5 md:w-4/12 text-sm md:text-base" type="text" name="user_name" placeholder="UserName" value="{{cache('user_name')}}" required>
+                        <input class="border rounded px-2 w-2/5 md:w-4/12 text-sm md:text-base" type="text" name="user_name" placeholder="UserName" value="{{$user['name']}}" required>
                         <input class="border rounded px-2 ml-2 w-3/5 md:w-10/12 text-sm md:text-base" type="text" name="message" placeholder="ReplyMessage" required>
                         <input class="px-2 py-1 ml-2 rounded bg-green-600 text-white font-bold link-hover cursor-pointer" type="submit" value="返信">
                     </form>
                     {{-- 削除 --}}
-                    @if ($thread->user_identifier == cache('user_identifier'))
+                    @if ($thread->user_identifier == $user['identifier'])
                         <form action="{{route('thread.destroy', ['thread'=>$thread->id])}}" method="post">
                             @csrf
                             @method('DELETE')
