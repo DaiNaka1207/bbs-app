@@ -13,8 +13,8 @@ class ThreadController extends Controller
     {
         // Cookieを変数に読み込み
         $user = [
-            'name' => $request->cookie('bbs-app_name'),
-            'identifier' => $request->cookie('bbs-app_identifier'),
+            'name' => Cookie::get('bbs-app_name'),
+            'identifier' => Cookie::get('bbs-app_identifier'),
         ];
 
         // Cookieが存在しなければデフォルト値を設定
@@ -25,8 +25,8 @@ class ThreadController extends Controller
                 'identifier' => Str::random(20),
             ];
 
-            Cookie::queue('bbs-app_name', $user['name']);
-            Cookie::queue('bbs-app_identifier', $user['identifier']);
+            Cookie::queue(Cookie::forever('bbs-app_name', $user['name']));
+            Cookie::queue(Cookie::forever('bbs-app_identifier', $user['identifier']));
         }
 
         // スレッド情報を取得して代入（最新情報を上位に表示）
@@ -39,7 +39,7 @@ class ThreadController extends Controller
     public function store(Request $request)
     {
         // フォームで入力されたユーザー名をキャッシュに登録
-        Cookie::queue('bbs-app_name', $request->user_name);
+        Cookie::queue(Cookie::forever('bbs-app_name', $request->user_name));
 
         // フォームに入力されたスレッド情報をデータベースへ登録
         $threads = new Thread;
