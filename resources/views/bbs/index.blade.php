@@ -65,7 +65,7 @@
                 <div>
                     <p class="mb-2 text-xs">{{$thread->created_at}} ＠{{$thread->user_name}}</p>
                     <p class="mb-2 text-xl font-bold">{{$thread->message_title}}</p>
-                    <p class="mb-2 whitespace-pre">{{$thread->message}}</p>
+                    <p class="mb-2 m-w-max whitespace-pre-line">{{$thread->message}}</p>
                 </div>
                 {{-- ボタン --}}
                 <div class="flex mt-5">
